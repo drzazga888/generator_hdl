@@ -4,15 +4,15 @@
 // Company: 
 // Engineer:
 //
-// Create Date:   17:43:38 12/11/2016
-// Design Name:   memory
-// Module Name:   /home/mario/generator_hdl/tbmemory.v
+// Create Date:   23:59:00 12/11/2016
+// Design Name:   ram_sp_ar_aw
+// Module Name:   /home/mario/generator_hdl/tbram.v
 // Project Name:  generator
 // Target Device:  
 // Tool versions:  
 // Description: 
 //
-// Verilog Test Fixture created by ISE for module: memory
+// Verilog Test Fixture created by ISE for module: ram_sp_ar_aw
 //
 // Dependencies:
 // 
@@ -22,22 +22,29 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 
-module tbmemory;
+module tbram;
 
 	// Inputs
 	reg clk;
 	reg rst;
-	reg [3:0] address;
-	wire [11:0] sample;
+	reg [7:0] address;
+
+	// Bidirs
+	wire [7:0] data;
+	reg [7:0] tmpdata = 0;
 
 	// Instantiate the Unit Under Test (UUT)
-	memory uut (
-		.clk(clk), 
+	ram_sp_ar_aw uut (
+		.clk(clk),
 		.rst(rst),
-		.address(address),
-		.sample(sample)
+		.address(address), 
+		.data(data)
 	);
 
+	initial begin
+		address = 0;
+	end
+	
 	initial begin
 		clk = 1'b0;
 		forever #1 clk = ~clk;
@@ -47,19 +54,16 @@ module tbmemory;
 		rst = 1'b0;
 		#1 rst = 1'b1;
 		#5 rst = 1'b0;
+		#10 address = 2;
 	end
 	
-	initial begin
-		address = 12'b0;
-	end
+	always @(posedge clk)
+		tmpdata = tmpdata + 1;
+		
+	assign data = tmpdata;
 	
 	initial begin
 		#100 $finish;
-	end
-	
-	initial begin
-		#10 address = 3;
-		#15 address = 6;
 	end
       
 endmodule

@@ -5,17 +5,5 @@
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
 <messages>
-<msg type="warning" file="HDLCompiler" num="1300" delta="unknown" >"/home/mario/generator_hdl/memory.v" Line 45: Non-module variable <arg fmt="%s" index="1">weight</arg> cannot be initialized at declaration
-</msg>
-
-<msg type="warning" file="HDLCompiler" num="1300" delta="unknown" >"/home/mario/generator_hdl/memory.v" Line 46: Non-module variable <arg fmt="%s" index="1">addr_int</arg> cannot be initialized at declaration
-</msg>
-
-<msg type="warning" file="HDLCompiler" num="1330" delta="unknown" >"/home/mario/generator_hdl/memory.v" Line 42: Function <arg fmt="%s" index="1">bit2int</arg> has no return value assignment
-</msg>
-
-<msg type="warning" file="HDLCompiler" num="189" delta="unknown" >"/home/mario/generator_hdl/tbmemory.v" Line 37: Size mismatch in connection of port &lt;<arg fmt="%s" index="3">address</arg>&gt;. Formal port size is <arg fmt="%d" index="2">12</arg>-bit while actual signal size is <arg fmt="%d" index="1">4</arg>-bit.
-</msg>
-
 </messages>
 
