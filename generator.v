@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date:    16:35:33 12/06/2016 
+// Create Date:    16:04:54 12/11/2016 
 // Design Name: 
-// Module Name:    moduloaddr 
+// Module Name:    generator 
 // Project Name: 
 // Target Devices: 
 // Tool versions: 
@@ -18,25 +18,28 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module moduloaddr #(parameter N = 7) (
+module generator(
     input clk,
     input rst,
-    input up,
-    output [11:0] address
+    /*output spi_mosi,
+    output dac_cs,
+    output dac_clr,
+    output spi_sck*/
+	 output[11:0] address
     );
 	 
-	`include "clogb2.v"
-	
-	localparam s = clogb2(N);
-	
-	reg [s-1:0] memory;
-	
-	always @(posedge clk, posedge rst)
-		if(rst)
-			memory <= {s{1'b0}};
-		else if(up)
-			memory <= memory + 1;
-			
-	assign address = memory;
+	 modulobit modulobit_inst (
+		.clk(clk),
+		.rst(rst),
+		.zero(zero_wire)
+	 );
+	 
+	 moduloaddr moduloaddr_inst (
+		.clk(clk),
+		.rst(rst),
+		.up(zero_wire),
+		.address(address)
+	 );
+
 
 endmodule

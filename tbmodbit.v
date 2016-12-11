@@ -22,20 +22,17 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 
-module tbmodbit;
+module testbench;
 
-	// Inputs
 	reg clk;
 	reg rst;
 
-	// Outputs
-	wire zero;
+	wire [11:0] address;
 
-	// Instantiate the Unit Under Test (UUT)
-	modulobit uut (
+	generator uut (
 		.clk(clk), 
 		.rst(rst), 
-		.zero(zero)
+		.address(address)
 	);
 	
 	initial begin
