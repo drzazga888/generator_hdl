@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -o "/home/lab_jos/Drzazga_Bajorek/projekt/generator/tbmodbit_isim_beh.exe" -prj "/home/lab_jos/Drzazga_Bajorek/projekt/generator/tbmodbit_beh.prj" "work.tbmodbit" "work.glbl" 
