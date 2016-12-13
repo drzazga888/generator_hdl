@@ -18,7 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module modulobit #(parameter N = 32) (
+module modulobit #(parameter N = 33) (
     input clk,
     input rst,
     output zero
