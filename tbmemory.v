@@ -27,7 +27,7 @@ module tbmemory;
 	// Inputs
 	reg clk;
 	reg rst;
-	reg [3:0] address;
+	reg [11:0] address;
 	wire [11:0] sample;
 
 	// Instantiate the Unit Under Test (UUT)

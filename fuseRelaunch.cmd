@@ -1,1 +1,1 @@
--intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -o "/home/mario/generator_hdl/tbram_isim_beh.exe" -prj "/home/mario/generator_hdl/tbram_beh.prj" "tbram" "work.glbl" 
+-intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -o "/home/tomek/Pulpit/projekty/generator_hdl/tbmemory_isim_beh.exe" -prj "/home/tomek/Pulpit/projekty/generator_hdl/tbmemory_beh.prj" "work.tbmemory" "work.glbl" 

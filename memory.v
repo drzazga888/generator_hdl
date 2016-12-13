@@ -25,6 +25,7 @@ module memory #(size = 32) (
 	
 	reg [11:0] output_sample;
 	reg [11:0] samples [0:size];
+	reg [11:0] address_pointer = 12'b0;
 	
 	assign sample = output_sample;
 	
@@ -33,11 +34,13 @@ module memory #(size = 32) (
 	end
 
 	always @(posedge clk, posedge rst)
-		if(rst)
+		if(rst) begin
+			address_pointer = 12'b0;
 			output_sample = 12'b0;
+		end
 		else begin
-			index = address * 1;
-			output_sample = samples[address * 1];
+			address_pointer = address;
+			output_sample = samples[address_pointer];
 		end
 	
 endmodule
