@@ -8,3 +8,4 @@ tbmodbit_isim_beh.exe
 tbmodbit_isim_beh.wdb
 tbmodbit_stx_beh.prj
 xilinxsim.ini
+*.wdb
