@@ -1,0 +1,30 @@
+#Location Constraints on ug334 board
+#Sparta-3AN, Xilinx
+# On this board, VCCAUX is 3.3 volts.
+
+CONFIG VCCAUX = "3.3" ;
+
+# Configure SUSPEND mode options.
+ 
+CONFIG ENABLE_SUSPEND = "NO" ;
+
+# FILTERED is appropriate for use with the switch on this board. Other allowed
+# settings are NO or UNFILTERED.  If set NO, the AWAKE pin becomes general I/O.
+# Please read the FPGA User Guide for more information.
+
+# Configure POST_CRC options.
+
+CONFIG POST_CRC = "DISABLE" ;
+
+NET "clk"       LOC = "E12"  | IOSTANDARD = LVCMOS33 | PERIOD = 20.000 ;
+OFFSET = IN  10.000 VALID 20.000 BEFORE "clk" ;
+OFFSET = OUT 20.000 AFTER "clk" ;
+
+NET "rst"	LOC = "T14" | IOSTANDARD = LVCMOS33 | PULLDOWN ;
+#Character LCD Screen
+NET "spi_mosi" LOC = "AB14" | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW ;
+NET "dac_cs" LOC = "W7" | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW ;
+NET "spi_sck" LOC = "AA20" | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW ;
+NET "dac_clr" LOC = "AB13" | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW ;
+#
+#UG334 - Spartan-3AN

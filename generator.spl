@@ -1,0 +1,12 @@
+[Inputs]
+clk
+rst
+[Outputs]
+spi_mosi
+dac_cs
+dac_clr
+spi_sck
+[BiDir]
+[ATTRIBUTES]
+VeriModel generator
+

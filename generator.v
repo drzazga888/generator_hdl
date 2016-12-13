@@ -18,17 +18,18 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module generator(
+module generator #(parameter DIV = 50000) (
     input clk,
     input rst,
     output spi_mosi,
     output dac_cs,
     output dac_clr,
     output spi_sck
-	 //output[11:0] address
     );
 	 
-	 clk_div clk_div_inst (
+	 wire [11:0] address_wire, sample_wire;
+	 
+	 clk_div #(.div(DIV)) clk_div_inst (
 		 .clk(clk),
 		 .rst(rst),
 		 .slow(clk_slow)

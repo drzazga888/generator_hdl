@@ -18,7 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module moduloaddr #(parameter N = 7) (
+module moduloaddr #(parameter N = 32) (
     input clk,
     input rst,
     input up,
@@ -28,6 +28,7 @@ module moduloaddr #(parameter N = 7) (
 	`include "clogb2.v"
 	
 	localparam s = clogb2(N);
+	localparam t = 12 - s;
 	
 	reg [s-1:0] memory;
 	
@@ -37,6 +38,6 @@ module moduloaddr #(parameter N = 7) (
 		else if(up)
 			memory <= memory + 1;
 			
-	assign address = memory;
+	assign address = {{t{1'b0}}, memory};
 
 endmodule

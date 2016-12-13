@@ -35,10 +35,12 @@ module fsm #(
 	localparam
 		STATUS_INIT = 2'd0,
 		STATUS_LOAD = 2'd1,
-		STATUS_SENDING = 2'd2;
+		STATUS_LOAD2 = 2'd2,
+		STATUS_SENDING = 2'd3;
 	 
 	reg [11:0] value_r;
-	reg en_r, value_r, st, nst;
+	reg en_r, clr_ctrl_r;
+	reg [1:0] st, nst;
 	
 	always @(posedge clk, posedge rst)
 		if(rst)
@@ -48,14 +50,19 @@ module fsm #(
 	
 	always @* begin
 		nst = STATUS_INIT;
-		en_r = 0'b0;
+		en_r = 1'b0;
+		clr_ctrl_r = 1'b1;
 		case (st)
 			STATUS_INIT: begin
-				en_r = 0'b1;
 				nst = STATUS_LOAD;
+				clr_ctrl_r = 1'b0;
 			end
 			STATUS_LOAD: begin
+				en_r = 1'b1;
 				value_r = value;
+				nst = STATUS_LOAD2;
+			end
+			STATUS_LOAD2: begin
 				nst = STATUS_SENDING;
 			end
 			STATUS_SENDING:
@@ -73,11 +80,11 @@ module fsm #(
 		.en(en_r),
 		.clr_ctrl(1'b0),
 		.data2trans({4'd0, value_r, CHANNEL, COMMAND, 8'd0}),
-		.clr(dac_clr),
 		.ss(dac_cs),
 		.sclk(spi_sck),
 		.mosi(spi_mosi)
 	);
-
+	
+	assign dac_clr = clr_ctrl_r;
 
 endmodule

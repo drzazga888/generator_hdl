@@ -18,29 +18,22 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module memory #(size = 32) (
-	 input clk, rst, [11:0] address,
-    output [11:0] sample
+module memory #(parameter size = 32) (
+	 input clk, read, 
+	 input [4:0] address,
+    output reg [11:0] sample
     );
 	
-	reg [11:0] output_sample;
-	reg [11:0] samples [0:size];
-	reg [11:0] address_pointer = 12'b0;
-	
-	assign sample = output_sample;
+	reg [11:0] samples [0:size-1];
+
 	
 	initial begin
 		$readmemh("memory.list", samples);
 	end
 
-	always @(posedge clk, posedge rst)
-		if(rst) begin
-			address_pointer = 12'b0;
-			output_sample = 12'b0;
-		end
-		else begin
-			address_pointer = address;
-			output_sample = samples[address_pointer];
-		end
+	always @(posedge clk)
+		if(read)
+			sample = samples[address];
+
 	
 endmodule

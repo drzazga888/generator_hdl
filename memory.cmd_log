@@ -1,0 +1,3 @@
+xst -intstyle ise -ifn "/home/lab_jos/Drzazga_Bajorek/generator_hdl/memory.xst" -ofn "/home/lab_jos/Drzazga_Bajorek/generator_hdl/memory.syr" 
+xst -intstyle ise -ifn "/home/lab_jos/Drzazga_Bajorek/generator_hdl/memory.xst" -ofn "/home/lab_jos/Drzazga_Bajorek/generator_hdl/memory.syr" 
+xst -intstyle ise -ifn "/home/lab_jos/Drzazga_Bajorek/generator_hdl/memory.xst" -ofn "/home/lab_jos/Drzazga_Bajorek/generator_hdl/memory.syr" 

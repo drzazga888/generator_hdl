@@ -4,9 +4,7 @@
      changes made to this file may result in unpredictable
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
-<messages>
-<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"/home/lab_jos/Drzazga_Bajorek/generator_hdl/fsm.v" Line 77: Port <arg fmt="%s" index="1">miso</arg> is not connected to this instance
-</msg>
-
-</messages>
-
+<DesignSummary rev="5">
+<CmdHistory>
+</CmdHistory>
+</DesignSummary>
