@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2016-12-13T00:38:48</DateModified>
+  <DateModified>2016-12-13T00:00:33</DateModified>
   <ModuleName>generator</ModuleName>
   <SummaryTimeStamp>Unknown</SummaryTimeStamp>
-  <SavedFilePath>/home/tomek/Pulpit/projekty/generator_hdl/iseconfig/generator.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>/home/tomek/Pulpit/projekty/generator_hdl/</ImplementationReportsDirectory>
-  <DateInitialized>2016-12-13T00:38:04</DateInitialized>
+  <SavedFilePath>/home/mario/generator_hdl/iseconfig/generator.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>/home/mario/generator_hdl/</ImplementationReportsDirectory>
+  <DateInitialized>2016-12-12T23:59:04</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>
  <body>
