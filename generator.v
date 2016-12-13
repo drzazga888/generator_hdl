@@ -21,25 +21,49 @@
 module generator(
     input clk,
     input rst,
-    /*output spi_mosi,
+    output spi_mosi,
     output dac_cs,
     output dac_clr,
-    output spi_sck*/
-	 output[11:0] address
+    output spi_sck
+	 //output[11:0] address
     );
 	 
+	 clk_div clk_div_inst (
+		 .clk(clk),
+		 .rst(rst),
+		 .slow(clk_slow)
+	 );
+	 
 	 modulobit modulobit_inst (
-		.clk(clk),
+		.clk(clk_slow),
 		.rst(rst),
 		.zero(zero_wire)
 	 );
 	 
 	 moduloaddr moduloaddr_inst (
-		.clk(clk),
+		.clk(clk_slow),
 		.rst(rst),
 		.up(zero_wire),
-		.address(address)
+		.address(address_wire)
 	 );
+	 
+	 memory memory_inst (
+		.clk(clk_slow),
+		.rst(rst),
+		.address(address_wire),
+		.sample(sample_wire)
+    );
+	 
+	 fsm fsm_inst (
+		.clk(clk_slow),
+		.rst(rst),
+		.value(sample_wire),
+		.zero(zero_wire),
+		.spi_mosi(spi_mosi),
+		.dac_cs(dac_cs),
+		.dac_clr(dac_clr),
+		.spi_sck(spi_sck)
+    );
 
 
 endmodule

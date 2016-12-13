@@ -1,1 +1,1 @@
--intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -o "/home/tomek/Pulpit/projekty/generator_hdl/tbmemory_isim_beh.exe" -prj "/home/tomek/Pulpit/projekty/generator_hdl/tbmemory_beh.prj" "work.tbmemory" "work.glbl" 
+-intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -o "/home/lab_jos/Drzazga_Bajorek/generator_hdl/tbmemory_isim_beh.exe" -prj "/home/lab_jos/Drzazga_Bajorek/generator_hdl/tbmemory_beh.prj" "work.tbmemory" "work.glbl" 
