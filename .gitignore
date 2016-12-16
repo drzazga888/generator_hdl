@@ -6,3 +6,7 @@
 *.ini
 *.wdb
 *.swp
+memory_summary.html
+/iseconfig/
+/ipcore_dir/
+/_xmsgs/

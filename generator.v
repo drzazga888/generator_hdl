@@ -30,7 +30,7 @@ module generator #(parameter DIV = 50000) (
 	 wire [11:0] address_wire, sample_wire;
 	 
 	 moduloaddr moduloaddr_inst (
-		.clk(clk_slow),
+		.clk(clk),
 		.rst(rst),
 		.up(zero_wire),
 		.address(address_wire)
@@ -44,7 +44,7 @@ module generator #(parameter DIV = 50000) (
     );
 	 
 	 fsm fsm_inst (
-		.clk(clk_slow),
+		.clk(clk),
 		.rst(rst),
 		.value(sample_wire),
 		.zero(zero_wire),
