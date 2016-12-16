@@ -29,18 +29,6 @@ module generator #(parameter DIV = 50000) (
 	 
 	 wire [11:0] address_wire, sample_wire;
 	 
-	 clk_div #(.div(DIV)) clk_div_inst (
-		 .clk(clk),
-		 .rst(rst),
-		 .slow(clk_slow)
-	 );
-	 
-	 modulobit modulobit_inst (
-		.clk(clk_slow),
-		.rst(rst),
-		.zero(zero_wire)
-	 );
-	 
 	 moduloaddr moduloaddr_inst (
 		.clk(clk_slow),
 		.rst(rst),
