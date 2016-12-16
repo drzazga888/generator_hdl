@@ -1,3 +1,0 @@
-verilog isim_temp "moduloaddr.v"
-verilog isim_temp "tbaddr.v"
-verilog isim_temp "/opt/xilinx/ISE//verilog/src/glbl.v"
