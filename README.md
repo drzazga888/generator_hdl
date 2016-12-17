@@ -1,5 +1,8 @@
 # generator_hdl
 
+## Obecny stan symulacji (po post-translate):
+![zdj2](https://i.imgsafe.org/5505c60993.png)
+
 ## Jak ma to działać?
 
 ![zdj1](https://i.imgsafe.org/4f5f1affc2.jpg)
