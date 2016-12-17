@@ -58,7 +58,7 @@ module tbgenerator;
 		#5
 		rst = 0;
 		
-		#1000
+		#400
 		$finish;
 	end
       

@@ -79,7 +79,7 @@ module fsm #(
 		.rst(rst),
 		.en(en_r),
 		.clr_ctrl(1'b0),
-		.data2trans({4'd0, value_r, CHANNEL, COMMAND, 8'd0}),
+		.data2trans({4'd0, data_r, CHANNEL, COMMAND, 8'd0}),
 		.ss(dac_cs),
 		.sclk(spi_sck),
 		.mosi(spi_mosi)
