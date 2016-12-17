@@ -22,10 +22,9 @@ module fsm #(
 	 parameter CHANNEL = 4'b1111,
 	 parameter COMMAND = 4'b0011
 ) (
-    input [11:0] value,
+    input [11:0] data,
     input rst,
     input clk,
-    input zero,
     output spi_mosi,
     output dac_cs,
     output dac_clr,
@@ -38,8 +37,8 @@ module fsm #(
 		STATUS_LOAD2 = 2'd2,
 		STATUS_SENDING = 2'd3;
 	 
-	reg [11:0] value_r;
-	reg en_r, clr_ctrl_r;
+	reg [11:0] data_r;
+	reg en_r, dac_clr_r;
 	reg [1:0] st, nst;
 	
 	always @(posedge clk, posedge rst)
@@ -51,25 +50,26 @@ module fsm #(
 	always @* begin
 		nst = STATUS_INIT;
 		en_r = 1'b0;
-		clr_ctrl_r = 1'b1;
+		dac_clr_r = 1'b0;
 		case (st)
 			STATUS_INIT: begin
+				dac_clr_r = 1'b1;
 				nst = STATUS_LOAD;
-				clr_ctrl_r = 1'b0;
 			end
 			STATUS_LOAD: begin
-				en_r = 1'b1;
-				value_r = value;
+				data_r = data;
 				nst = STATUS_LOAD2;
 			end
 			STATUS_LOAD2: begin
+				en_r = 1'b1;
 				nst = STATUS_SENDING;
 			end
-			STATUS_SENDING:
-				if (zero)
+			STATUS_SENDING: begin
+				if (dac_cs)
 					nst = STATUS_LOAD;
 				else
 					nst = STATUS_SENDING;
+			end
 		endcase
 	end
 		
@@ -85,6 +85,6 @@ module fsm #(
 		.mosi(spi_mosi)
 	);
 	
-	assign dac_clr = clr_ctrl_r;
-
+	assign dac_clr = !rst;
+	
 endmodule

@@ -4,9 +4,9 @@
 // Company: 
 // Engineer:
 //
-// Create Date:   14:32:48 12/13/2016
+// Create Date:   12:50:37 12/17/2016
 // Design Name:   generator
-// Module Name:   /home/lab_jos/Drzazga_Bajorek/generator_hdl/tbgenerator.v
+// Module Name:   /home/mario/generator_hdl/tbgenerator.v
 // Project Name:  generator
 // Target Device:  
 // Tool versions:  
@@ -35,7 +35,7 @@ module tbgenerator;
 	wire spi_sck;
 
 	// Instantiate the Unit Under Test (UUT)
-	generator #(.DIV(3)) uut (
+	generator uut (
 		.clk(clk), 
 		.rst(rst), 
 		.spi_mosi(spi_mosi), 
@@ -43,20 +43,23 @@ module tbgenerator;
 		.dac_clr(dac_clr), 
 		.spi_sck(spi_sck)
 	);
+	
+	always begin
+		#1 clk = !clk;
+	end
 
 	initial begin
-		clk = 1'b0;
-		forever #1 clk = ~clk;
-	end
-	
-	initial begin
-		rst = 1'b0;
-		#1 rst = 1'b1;
-		#5 rst = 1'b0;
-	end
-	
-	initial begin
-		#3000 $finish;
+		clk = 0;
+		rst = 0;
+		
+		#10
+		rst = 1;
+		
+		#5
+		rst = 0;
+		
+		#1000
+		$finish;
 	end
       
 endmodule

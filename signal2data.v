@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date:    16:04:54 12/11/2016 
+// Create Date:    12:21:27 12/17/2016 
 // Design Name: 
-// Module Name:    generator 
+// Module Name:    signal2data 
 // Project Name: 
 // Target Devices: 
 // Tool versions: 
@@ -18,36 +18,36 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module generator #(parameter DIV = 50000, parameter SIZE = 12) (
+module signal2data #(parameter SIZE = 12) (
     input clk,
     input rst,
-    output spi_mosi,
-    output dac_cs,
-    output dac_clr,
-    output spi_sck
+    input next,
+    output [SIZE - 1:0] data
     );
 	 
 	`include "clogb2.v"
 	
 	localparam logsize = clogb2(SIZE);
+	
+	reg [logsize - 1:0] address_reg;
+	
+	always @(posedge clk, posedge rst) begin
+		if (rst)
+			address_reg <= {logsize{1'b0}};
+		if (next)
+			address_reg <= address_reg + 1;
+	end
+	
+	always @* begin
+		if (address_reg == SIZE)
+			address_reg = {logsize{1'b0}};
+	end
 	 
-	wire [SIZE - 1:0] sample_wire;
-
-	signal2data signa2data_impl (
+	memory memory_impl (
 		.clk(clk),
-		.rst(rst),
-		.next(dac_cs),
-		.data(sample_wire)
-	);
-
-	fsm fsm_inst (
-		.clk(clk),
-		.rst(rst),
-		.data(sample_wire),
-		.spi_mosi(spi_mosi),
-		.dac_cs(dac_cs),
-		.dac_clr(dac_clr),
-		.spi_sck(spi_sck)
+		.read(next),
+		.address(address_reg),
+		.sample(data)
 	);
 
 

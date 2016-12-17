@@ -19,13 +19,15 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module memory #(parameter size = 32) (
-	 input clk, read, 
-	 input [4:0] address,
+	 input clk,
+	 input read, 
+	 input [clogb2(size) - 1:0] address,
     output reg [11:0] sample
     );
+	 
+	`include "clogb2.v"
 	
 	reg [11:0] samples [0:size-1];
-
 	
 	initial begin
 		$readmemh("memory.list", samples);
