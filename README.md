@@ -2,7 +2,7 @@
 
 ## Jak ma to działać?
 
-![zdj1](https://s28.postimg.org/6yezszbqh/20161216_004747.jpg)
+![zdj1](https://i.imgsafe.org/4f5f1affc2.jpg)
 
 ## Linki
 
