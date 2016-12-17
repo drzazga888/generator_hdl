@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date:    16:24:41 12/06/2016 
+// Create Date:    15:31:01 12/17/2016 
 // Design Name: 
-// Module Name:    modulobit 
+// Module Name:    edge_detector 
 // Project Name: 
 // Target Devices: 
 // Tool versions: 
@@ -18,24 +18,17 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module modulobit #(parameter N = 33) (
+module edge_detector(
     input clk,
-    input rst,
-    output zero
+    input i,
+    output o
     );
-	
-	`include "clogb2.v"
-	
-	localparam s = clogb2(N);
-	
-	reg [s-1:0] memory;
-	
-	always @(posedge clk, posedge rst)
-		if(rst)
-			memory <= {s{1'b0}};
-		else
-			memory <= memory + 1;
-			
-	assign zero = (memory == 0);
+	 
+	reg posedge_detector_r = 1'b0;
+	 
+	always @(posedge clk)
+		posedge_detector_r <= i; 
+		
+	assign o = i & ~posedge_detector_r;
 
 endmodule

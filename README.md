@@ -1,5 +1,14 @@
 # generator_hdl
 
+## Obecny stan symulacji (po post-translate):
+![zdj2](https://i.imgsafe.org/5505c60993.png)
+
+## Jak ma to działać?
+
+![zdj1](https://i.imgsafe.org/4f5f1affc2.jpg)
+
+## Linki
+
 Link do wartości wrzucanych do generatora: https://docs.google.com/spreadsheets/d/1YiaCMkdQNTvpQQk4ZCYrLhBPMU-gj3aw2uekbjabAa0/edit#gid=1077131224
 
 Interfejs SPI: http://www.fis.agh.edu.pl/~skoczen/hdl/pdf2/SPI.pdf

@@ -18,7 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module generator #(parameter DIV = 50000) (
+module generator #(parameter DIV = 50000, parameter SIZE = 12) (
     input clk,
     input rst,
     output spi_mosi,
@@ -27,44 +27,28 @@ module generator #(parameter DIV = 50000) (
     output spi_sck
     );
 	 
-	 wire [11:0] address_wire, sample_wire;
+	`include "clogb2.v"
+	
+	localparam logsize = clogb2(SIZE);
 	 
-	 clk_div #(.div(DIV)) clk_div_inst (
-		 .clk(clk),
-		 .rst(rst),
-		 .slow(clk_slow)
-	 );
-	 
-	 modulobit modulobit_inst (
-		.clk(clk_slow),
+	wire [SIZE - 1:0] sample_wire;
+
+	signal2data signal2data_impl (
+		.clk(clk),
 		.rst(rst),
-		.zero(zero_wire)
-	 );
-	 
-	 moduloaddr moduloaddr_inst (
-		.clk(clk_slow),
+		.next(dac_cs),
+		.data(sample_wire)
+	);
+
+	fsm fsm_inst (
+		.clk(clk),
 		.rst(rst),
-		.up(zero_wire),
-		.address(address_wire)
-	 );
-	 
-	 memory memory_inst (
-		.clk(clk_slow),
-		.rst(rst),
-		.address(address_wire),
-		.sample(sample_wire)
-    );
-	 
-	 fsm fsm_inst (
-		.clk(clk_slow),
-		.rst(rst),
-		.value(sample_wire),
-		.zero(zero_wire),
+		.data(sample_wire),
 		.spi_mosi(spi_mosi),
 		.dac_cs(dac_cs),
 		.dac_clr(dac_clr),
 		.spi_sck(spi_sck)
-    );
+	);
 
 
 endmodule
