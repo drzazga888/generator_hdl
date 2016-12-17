@@ -57,10 +57,11 @@ module fsm #(
 				nst = STATUS_LOAD;
 			end
 			STATUS_LOAD: begin
-				data_r = data;
+				en_r = 1'b1;
 				nst = STATUS_LOAD2;
 			end
 			STATUS_LOAD2: begin
+				data_r = data;
 				en_r = 1'b1;
 				nst = STATUS_SENDING;
 			end

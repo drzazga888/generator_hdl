@@ -50,15 +50,10 @@ module tbgenerator;
 
 	initial begin
 		clk = 0;
-		rst = 0;
-		
-		#10
 		rst = 1;
-		
 		#5
 		rst = 0;
-		
-		#400
+		#300
 		$finish;
 	end
       

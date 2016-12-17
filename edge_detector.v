@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date:    17:22:31 12/11/2016 
+// Create Date:    15:31:01 12/17/2016 
 // Design Name: 
-// Module Name:    memory 
+// Module Name:    edge_detector 
 // Project Name: 
 // Target Devices: 
 // Tool versions: 
@@ -18,22 +18,17 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module memory #(parameter N = 32, parameter size = 12, parameter logsize = 4) (
-	 input clk,
-	 input read, 
-	 input [logsize - 1:0] address,
-    output reg [size - 1:0] sample
+module edge_detector(
+    input clk,
+    input i,
+    output o
     );
-	
-	reg [size - 1:0] samples [0: N - 1];
-	
-	initial begin
-		$readmemh("memory.list", samples);
-	end
-	
+	 
+	reg posedge_detector_r = 1'b0;
+	 
 	always @(posedge clk)
-		if(read)
-			sample <= samples[address];
-			
-			
+		posedge_detector_r <= i; 
+		
+	assign o = i & ~posedge_detector_r;
+
 endmodule

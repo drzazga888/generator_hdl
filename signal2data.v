@@ -30,20 +30,24 @@ module signal2data #(parameter SIZE = 12) (
 	localparam logsize = clogb2(SIZE);
 	
 	reg [logsize - 1:0] address_reg;
+	wire real_next;
+
+	assign need_reset = rst || (real_next && (address_reg == (SIZE - 1)));
 	
-	always @(posedge clk, posedge rst) begin
-		if (rst)
+	always @(posedge real_next, posedge need_reset) begin
+		if (need_reset)
 			address_reg <= {logsize{1'b0}};
-		if (next)
+		else
 			address_reg <= address_reg + 1;
 	end
 	
-	always @* begin
-		if (address_reg == SIZE)
-			address_reg = {logsize{1'b0}};
-	end
+	edge_detector edge_detector_impl(
+		.i(next),
+		.clk(clk),
+		.o(real_next)
+	);
 	 
-	memory memory_impl (
+	memory #(.size(SIZE), .logsize(logsize)) memory_impl(
 		.clk(clk),
 		.read(next),
 		.address(address_reg),
