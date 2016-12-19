@@ -18,7 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module generator #(parameter DIV = 50000, parameter SIZE = 12) (
+module generator #(parameter DIV = 50000, parameter SIZE = 12, parameter N = 1024) (
     input clk,
     input rst,
     output spi_mosi,
@@ -33,7 +33,7 @@ module generator #(parameter DIV = 50000, parameter SIZE = 12) (
 	 
 	wire [SIZE - 1:0] sample_wire;
 
-	signal2data signal2data_impl (
+	signal2data #(.N(N)) signal2data_impl (
 		.clk(clk),
 		.rst(rst),
 		.next(dac_cs),

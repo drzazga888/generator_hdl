@@ -18,7 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module signal2data #(parameter SIZE = 12) (
+module signal2data #(parameter SIZE = 12, parameter N = 3) (
     input clk,
     input rst,
     input next,
@@ -31,23 +31,27 @@ module signal2data #(parameter SIZE = 12) (
 	
 	reg [logsize - 1:0] address_reg;
 	wire real_next;
-
-	assign need_reset = rst || (real_next && (address_reg == (SIZE - 1)));
 	
-	always @(posedge real_next, posedge need_reset) begin
-		if (need_reset)
+        always @(posedge clk, posedge rst) begin
+		if (rst)
 			address_reg <= {logsize{1'b0}};
-		else
-			address_reg <= address_reg + 1;
+                else begin
+                        if (real_next) begin
+                                if (address_reg == (N - 1))
+                                        address_reg <= {logsize{1'b0}};
+                                else
+                                        address_reg <= address_reg + 1;
+                        end
+                end
 	end
-	
+
 	edge_detector edge_detector_impl(
 		.i(next),
 		.clk(clk),
 		.o(real_next)
 	);
 	 
-	memory #(.size(SIZE), .logsize(logsize)) memory_impl(
+	memory #(.size(SIZE), .logsize(logsize), .N(N)) memory_impl(
 		.clk(clk),
 		.read(next),
 		.address(address_reg),

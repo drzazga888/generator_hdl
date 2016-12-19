@@ -35,7 +35,7 @@ module tbgenerator;
 	wire spi_sck;
 
 	// Instantiate the Unit Under Test (UUT)
-	generator uut (
+	generator #(.N(3)) uut (
 		.clk(clk), 
 		.rst(rst), 
 		.spi_mosi(spi_mosi), 
