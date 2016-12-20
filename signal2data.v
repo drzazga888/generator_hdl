@@ -46,9 +46,10 @@ module signal2data #(parameter SIZE = 12, parameter N = 3) (
 	end
 
 	edge_detector edge_detector_impl(
-		.i(next),
+		.in(next),
 		.clk(clk),
-		.o(real_next)
+		.rst(rst),
+		.out(real_next)
 	);
 	 
 	memory #(.size(SIZE), .logsize(logsize), .N(N)) memory_impl(
