@@ -19,12 +19,14 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module fsm #(
-	 parameter CHANNEL = 4'b1111,
+	 parameter CHANNEL_S = 4'b1111,
+	 parameter CHANNEL_T = 4'b1111,
 	 parameter COMMAND = 4'b0011
 ) (
     input [11:0] data,
     input rst,
     input clk,
+	 input channel,
     output spi_mosi,
     output dac_cs,
     output dac_clr,
@@ -40,6 +42,7 @@ module fsm #(
 	reg [11:0] data_r;
 	reg en_r, dac_clr_r;
 	reg [1:0] st, nst;
+	reg sel_channel;
 	
 	always @(posedge clk, posedge rst)
 		if(rst)
@@ -79,14 +82,19 @@ module fsm #(
 		else if (st == STATUS_LOAD)
 			data_r <= data;
 		
-	 
+	always @*
+		if(channel)
+			sel_channel <= CHANNEL_T;
+		else
+			sel_channel <= CHANNEL_S;
+	
 	spi #(32) spi_impl (
 		.clk(clk),
 		.rst(rst),
 		.en(en_r),
 		.clr_ctrl(1'b0),
 		// .data2trans({4'd0, data_r, CHANNEL, COMMAND, 8'd0}),
-		.data2trans({8'd0, COMMAND, CHANNEL, data_r, 4'd0}),
+		.data2trans({8'd0, COMMAND, sel_channel, data_r, 4'd0}),
 		.ss(dac_cs),
 		.sclk(spi_sck),
 		.mosi(spi_mosi)

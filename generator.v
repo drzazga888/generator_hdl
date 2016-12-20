@@ -37,13 +37,15 @@ module generator #(parameter DIV = 50000, parameter SIZE = 12, parameter N = 102
 		.clk(clk),
 		.rst(rst),
 		.next(dac_cs),
-		.data(sample_wire)
+		.data(sample_wire),
+		.channel(channel_wire)
 	);
 
 	fsm fsm_inst (
 		.clk(clk),
 		.rst(rst),
 		.data(sample_wire),
+		.channel(channel_wire),
 		.spi_mosi(spi_mosi),
 		.dac_cs(dac_cs),
 		.dac_clr(dac_clr),

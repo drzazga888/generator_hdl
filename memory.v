@@ -18,7 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module memory #(parameter N = 32, parameter size = 12, parameter logsize = 4) (
+module memory #(parameter N = 32, parameter size = 12, parameter logsize = 4, parameter file = "sinus.list") (
 	 input clk,
 	 input read, 
 	 input [logsize - 1:0] address,
@@ -28,7 +28,7 @@ module memory #(parameter N = 32, parameter size = 12, parameter logsize = 4) (
 	reg [size - 1:0] samples [0: N - 1];
 	
 	initial begin
-		$readmemh("memory.list", samples);
+		$readmemh(file, samples);
 	end
 	
 	always @(posedge clk)
