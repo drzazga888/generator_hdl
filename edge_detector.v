@@ -20,15 +20,20 @@
 //////////////////////////////////////////////////////////////////////////////////
 module edge_detector(
     input clk,
-    input i,
-    output o
+	 input rst,
+    input in,
+    output out
     );
 	 
-	reg posedge_detector_r = 1'b0;
-	 
-	always @(posedge clk)
-		posedge_detector_r <= i; 
-		
-	assign o = i & ~posedge_detector_r;
+	reg [1:0] memory;
+	
+	always @(posedge clk, posedge rst)
+		if (rst)
+			memory <= 2'b0;
+		else begin
+			memory <= {memory[0], in};
+		end
+	
+	assign out = ~memory[1] & memory[0];
 
 endmodule

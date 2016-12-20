@@ -18,7 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module signal2data #(parameter SIZE = 12) (
+module signal2data #(parameter SIZE = 50000) (
     input clk,
     input rst,
     input next,
@@ -42,9 +42,10 @@ module signal2data #(parameter SIZE = 12) (
 	end
 	
 	edge_detector edge_detector_impl(
-		.i(next),
+		.in(next),
 		.clk(clk),
-		.o(real_next)
+		.rst(rst),
+		.out(real_next)
 	);
 	 
 	memory #(.size(SIZE), .logsize(logsize)) memory_impl(
