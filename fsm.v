@@ -58,13 +58,12 @@ module fsm #(
 			end
 			STATUS_LOAD: begin
 				en_r = 1'b1;
-				nst = STATUS_LOAD2;
-			end
-			STATUS_LOAD2: begin
-				data_r = data;
-				en_r = 1'b1;
 				nst = STATUS_SENDING;
 			end
+	/*		STATUS_LOAD2: begin
+				en_r = 1'b1;
+				nst = STATUS_SENDING;
+			end*/
 			STATUS_SENDING: begin
 				if (dac_cs)
 					nst = STATUS_LOAD;
@@ -73,6 +72,12 @@ module fsm #(
 			end
 		endcase
 	end
+	
+	always @(posedge clk, posedge rst)
+		if(rst)
+			data_r <= 12'b0;
+		else if (st == STATUS_LOAD)
+			data_r <= data;
 		
 	 
 	spi #(32) spi_impl (
@@ -80,7 +85,8 @@ module fsm #(
 		.rst(rst),
 		.en(en_r),
 		.clr_ctrl(1'b0),
-		.data2trans({4'd0, data_r, CHANNEL, COMMAND, 8'd0}),
+		// .data2trans({4'd0, data_r, CHANNEL, COMMAND, 8'd0}),
+		.data2trans({8'd0, COMMAND, CHANNEL, data_r, 4'd0}),
 		.ss(dac_cs),
 		.sclk(spi_sck),
 		.mosi(spi_mosi)

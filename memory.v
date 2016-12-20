@@ -35,5 +35,4 @@ module memory #(parameter N = 32, parameter size = 12, parameter logsize = 4) (
 		if(read)
 			sample <= samples[address];
 			
-			
 endmodule
