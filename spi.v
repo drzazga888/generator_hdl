@@ -27,7 +27,7 @@ module spi #(parameter bits = 8) (
 
 	`include "clogb2.v"
 
-	localparam m = 5, d = 2, bm = clogb2(m), bdcnt = clogb2(bits);
+	localparam m = 3, d = 1, bm = clogb2(m), bdcnt = clogb2(bits);
 	localparam idle = 2'b00, shdown = 2'b01, progr = 2'b10, start = 2'b11;
 	
 	reg [1:0] st, nst;

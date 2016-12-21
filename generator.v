@@ -24,7 +24,9 @@ module generator #(parameter DIV = 50000, parameter SIZE = 12, parameter N = 102
     output spi_mosi,
     output dac_cs,
     output dac_clr,
-    output spi_sck
+    output spi_sck,
+	 output cs_test,
+	 output clk_test
     );
 	 
 	`include "clogb2.v"
@@ -51,6 +53,8 @@ module generator #(parameter DIV = 50000, parameter SIZE = 12, parameter N = 102
 		.dac_clr(dac_clr),
 		.spi_sck(spi_sck)
 	);
-
+	
+	assign clk_test = spi_sck;
+	assign cs_test = dac_cs;
 
 endmodule
