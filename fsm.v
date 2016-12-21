@@ -19,8 +19,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module fsm #(
-	 parameter CHANNEL_S = 4'b1111,
-	 parameter CHANNEL_T = 4'b1111,
+	 parameter CHANNEL_S = 4'b0000,
+	 parameter CHANNEL_T = 4'b0001,
 	 parameter COMMAND = 4'b0011
 ) (
     input [11:0] data,
@@ -42,7 +42,7 @@ module fsm #(
 	reg [11:0] data_r;
 	reg en_r, dac_clr_r;
 	reg [1:0] st, nst;
-	reg sel_channel;
+	reg [3:0] sel_channel;
 	
 	always @(posedge clk, posedge rst)
 		if(rst)
@@ -60,13 +60,12 @@ module fsm #(
 				nst = STATUS_LOAD;
 			end
 			STATUS_LOAD: begin
+				nst = STATUS_LOAD2;
+			end
+			STATUS_LOAD2: begin
 				en_r = 1'b1;
 				nst = STATUS_SENDING;
 			end
-	/*		STATUS_LOAD2: begin
-				en_r = 1'b1;
-				nst = STATUS_SENDING;
-			end*/
 			STATUS_SENDING: begin
 				if (dac_cs)
 					nst = STATUS_LOAD;
@@ -93,7 +92,6 @@ module fsm #(
 		.rst(rst),
 		.en(en_r),
 		.clr_ctrl(1'b0),
-		// .data2trans({4'd0, data_r, CHANNEL, COMMAND, 8'd0}),
 		.data2trans({8'd0, COMMAND, sel_channel, data_r, 4'd0}),
 		.ss(dac_cs),
 		.sclk(spi_sck),

@@ -27,19 +27,22 @@ module main_memory #(parameter N = 32, parameter size = 12, parameter logsize = 
     output [size - 1:0] sample
     );
 	
-	reg [size-1:0] sinus_r;
-	reg [size-1:0] trojkat_r;
+	wire [size-1:0] sinus_r;
+	wire [size-1:0] trojkat_r;
+	
+	assign read_sin = channel && read;
+	assign read_tr = !channel && read;
 
 	memory #(.size(size), .logsize(logsize), .N(N), .file("sinus.list")) memory_sinus(
 		.clk(clk),
-		.read(channel ? read : 1'b0),
+		.read(read_sin),
 		.address(address),
 		.sample(sinus_r)
 	);
 	
 	memory #(.size(size), .logsize(logsize), .N(N), .file("trojkat.list")) memory_trojkat(
 		.clk(clk),
-		.read((!channel) ? read : 1'b0),
+		.read(read_tr),
 		.address(address),
 		.sample(trojkat_r)
 	);
