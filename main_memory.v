@@ -20,7 +20,6 @@
 //////////////////////////////////////////////////////////////////////////////////
 module main_memory #(parameter N = 32, parameter size = 12, parameter logsize = 4) (
 	 input clk,
-	 input rst,
 	 input read,
 	 input channel,
 	 input [logsize - 1:0] address,
@@ -47,6 +46,6 @@ module main_memory #(parameter N = 32, parameter size = 12, parameter logsize = 
 		.sample(trojkat_r)
 	);
 	
-	assign sample = channel ? sinus_r : trojkat_r;
+	assign sample = channel ? trojkat_r : sinus_r;
 			
 endmodule

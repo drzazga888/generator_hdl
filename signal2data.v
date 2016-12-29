@@ -18,7 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module signal2data #(parameter SIZE = 12, parameter N = 3) (
+module signal2data #(parameter SIZE = 12, parameter N = 3, parameter CHANNELS = 2) (
     input clk,
     input rst,
     input next,
@@ -29,16 +29,19 @@ module signal2data #(parameter SIZE = 12, parameter N = 3) (
 	`include "clogb2.v"
 	
 	localparam logsize = clogb2(N);
+	localparam logchannel = clogb2(CHANNELS);
 	
-	reg [logsize - 1:0] address_reg;
-	reg counter;
+	reg [logsize-1:0] address_reg;
+	reg [logchannel-1:0] counter;
 	wire real_next;
 	
-	always @(posedge real_next, posedge rst)
+	always @(posedge clk, posedge rst)
 		if (rst)
-			counter <= 1'b0;
-		else
-			counter <= !counter;
+			counter <= {logsize{1'b0}};
+		else begin
+			if (real_next)
+				counter <= counter + 1;
+		end
 	
    always @(posedge clk, posedge rst) begin
 		if (rst)
@@ -62,7 +65,6 @@ module signal2data #(parameter SIZE = 12, parameter N = 3) (
 	 
 	main_memory #(.size(SIZE), .logsize(logsize), .N(N)) memory_impl(
 		.clk(clk),
-		.rst(rst),
 		.read(real_next),
 		.channel(counter),
 		.address(address_reg),

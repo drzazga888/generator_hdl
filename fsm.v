@@ -34,14 +34,15 @@ module fsm #(
     );
 	 
 	localparam
-		STATUS_INIT = 2'd0,
-		STATUS_LOAD = 2'd1,
-		STATUS_LOAD2 = 2'd2,
-		STATUS_SENDING = 2'd3;
+		STATUS_INIT = 3'd0,
+		STATUS_LOAD = 3'd1,
+		STATUS_LOAD2 = 3'd2,
+		STATUS_LOAD3 = 3'd3,
+		STATUS_SENDING = 3'd4;
 	 
 	reg [11:0] data_r;
-	reg en_r, dac_clr_r;
-	reg [1:0] st, nst;
+	reg en_r;
+	reg [2:0] st, nst;
 	reg [3:0] sel_channel;
 	
 	always @(posedge clk, posedge rst)
@@ -53,16 +54,18 @@ module fsm #(
 	always @* begin
 		nst = STATUS_INIT;
 		en_r = 1'b0;
-		dac_clr_r = 1'b0;
 		case (st)
 			STATUS_INIT: begin
-				dac_clr_r = 1'b1;
 				nst = STATUS_LOAD;
 			end
 			STATUS_LOAD: begin
 				nst = STATUS_LOAD2;
 			end
 			STATUS_LOAD2: begin
+				en_r = 1'b1;
+				nst = STATUS_LOAD3;
+			end
+			STATUS_LOAD3: begin
 				en_r = 1'b1;
 				nst = STATUS_SENDING;
 			end
@@ -78,7 +81,7 @@ module fsm #(
 	always @(posedge clk, posedge rst)
 		if(rst)
 			data_r <= 12'b0;
-		else if (st == STATUS_LOAD)
+		else if (st == STATUS_LOAD2)
 			data_r <= data;
 		
 	always @*

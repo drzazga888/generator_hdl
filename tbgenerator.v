@@ -33,6 +33,8 @@ module tbgenerator;
 	wire dac_cs;
 	wire dac_clr;
 	wire spi_sck;
+	wire cs_test;
+	wire clk_test;
 
 	// Instantiate the Unit Under Test (UUT)
 	generator #(.N(3)) uut (
@@ -41,7 +43,9 @@ module tbgenerator;
 		.spi_mosi(spi_mosi), 
 		.dac_cs(dac_cs), 
 		.dac_clr(dac_clr), 
-		.spi_sck(spi_sck)
+		.spi_sck(spi_sck),
+		.cs_test(cs_test),
+		.clk_test(clk_test)
 	);
 	
 	always begin
