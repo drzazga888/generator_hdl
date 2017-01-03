@@ -18,7 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module main_memory #(parameter N = 32, parameter size = 12, parameter logsize = 4) (
+module main_memory #(parameter N = 1024, parameter size = 12, parameter logsize = 4) (
 	 input clk,
 	 input read,
 	 input channel,

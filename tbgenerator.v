@@ -49,7 +49,7 @@ module tbgenerator;
 	);
 	
 	always begin
-		#1 clk = !clk;
+		#5 clk = !clk;
 	end
 
 	initial begin

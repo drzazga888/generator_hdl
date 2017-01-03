@@ -18,7 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module memory #(parameter N = 32, parameter size = 12, parameter logsize = 4, parameter file = "sinus.list") (
+module memory #(parameter file = "sinus.list", parameter N = 1024, parameter size = 12, parameter logsize = 4) (
 	 input clk,
 	 input read, 
 	 input [logsize - 1:0] address,
